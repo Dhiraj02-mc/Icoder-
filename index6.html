@@ -1,0 +1,155 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Python Course — Chapter 1 (iCoder)</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--muted:#94a3b8;--accent:#06b6d4;--glass:rgba(255,255,255,0.03)}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:linear-gradient(180deg,#071029 0%, #07132a 100%); color:#e6eef6; margin:0; padding:24px}
+    .container{max-width:900px;margin:0 auto}
+    header{display:flex;align-items:center;gap:16px}
+    .logo{width:56px;height:56px;background:var(--accent);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#072;}
+    h1{margin:0;font-size:1.6rem}
+    p.lead{color:var(--muted);margin-top:6px}
+    .card{background:var(--card);border-radius:12px;padding:18px;margin-top:18px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    h2{margin-top:0}
+    pre{background:var(--glass);padding:12px;border-radius:8px;overflow:auto;color:#ddf}
+    code{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', monospace}
+    .btn{display:inline-block;padding:8px 12px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.06);cursor:pointer}
+    ul{line-height:1.6}
+    footer{color:var(--muted);font-size:0.9rem;margin-top:18px}
+    .grid{display:grid;grid-template-columns:1fr 280px;gap:16px}
+    @media(max-width:900px){.grid{grid-template-columns:1fr}}
+    .small{font-size:0.9rem;color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">iC</div>
+      <div>
+        <h1>Python — Chapter 1: Introduction & Basics</h1>
+        <p class="lead">Chapter 1 for iCoder: a beginner-friendly introduction to Python with clear examples.</p>
+      </div>
+    </header><div class="grid">
+  <div>
+    <section class="card">
+      <h2>What you'll learn in this chapter</h2>
+      <ul>
+        <li>What Python is and why learn it</li>
+        <li>Quick setup (Windows/Mac/Linux)</li>
+        <li>Your first program: <code>print("Hello, World!")</code></li>
+        <li>Variables and basic data types (int, float, str, bool)</li>
+        <li>Input/output with <code>input()</code> and <code>print()</code></li>
+        <li>Comments and basic operators</li>
+        <li>Simple examples and exercises</li>
+      </ul>
+    </section>
+
+    <section class="card" id="setup">
+      <h2>What is Python?</h2>
+      <p class="small">Python is a high-level, interpreted programming language that is easy to read and learn. It's widely used for web development, data science, automation, scripting, and more.</p>
+
+      <h3>Quick setup</h3>
+      <ul>
+        <li>Download Python from <code>python.org</code> or check installation with <code>python -V</code> in terminal.</li>
+        <li>Use an editor like VS Code or Thonny to write and run code.</li>
+        <li>To run: open terminal and use <code>python file.py</code> or use the Run button in your editor.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>First program — Hello, World!</h2>
+      <p class="small">Create a new file named <code>hello.py</code> and write:</p>
+      <pre><code># hello.py
+
+print("Hello, World!")</code></pre> <p class="small">Run in terminal: <code>python hello.py</code> — output: <code>Hello, World!</code></p> </section>
+
+<section class="card">
+      <h2>Variables and data types</h2>
+      <p class="small">In Python, you assign a variable using <code>=</code>. No explicit declaration needed.</p>
+      <pre><code># examples
+
+x = 5          # int pi = 3.14      # float name = "Dhiraj"  # str (string) is_happy = True   # bool (True/False) </code></pre>
+
+<h3>Basic operators</h3>
+      <pre><code># arithmetic operators
+
+add = 2 + 3 sub = 5 - 1 mul = 4 * 3 div = 10 / 2  # float division floor = 10 // 3 mod = 10 % 3 power = 2 ** 3</code></pre> </section>
+
+<section class="card">
+      <h2>Input and output</h2>
+      <pre><code># user_input.py
+
+name = input("Enter your name: ") print("Hello, " + name + "! Welcome to iCoder.")</code></pre> <p class="small">Note: <code>input()</code> returns a string. Convert to <code>int()</code> or <code>float()</code> for numbers.</p> <pre><code>age = int(input("How old are you? ")) print("You are", age, "years old")</code></pre> </section>
+
+<section class="card">
+      <h2>Comments</h2>
+      <pre><code># This is a single-line comment
+
+""" This is a multi-line comment (docstring style) """ </code></pre> </section>
+
+<section class="card">
+      <h2>Complete example</h2>
+      <pre><code># greet.py
+
+name = input("Enter your name: ") age = int(input("How old are you? ")) print(f"Hello {name}! You are {age} years old.")</code></pre> </section>
+
+<section class="card">
+      <h2>Practice exercises</h2>
+      <ol>
+        <li>Write a program that adds two numbers and prints the result.</li>
+        <li>Ask the user for their name and age, then greet them.</li>
+        <li>Calculate BMI: ask for weight (kg) and height (m), then print BMI = weight / height**2.</li>
+        <li>Small quiz: ask "What is 5 + 7?" — if the user answers correctly print "Correct" else print "Incorrect".</li>
+      </ol>
+      <p class="small">Upload each program to iCoder and run to check the results.</p>
+    </section>
+
+  </div>
+
+  <aside>
+    <div class="card">
+      <h3>Quick tips</h3>
+      <ul>
+        <li>Choose clear variable names — <code>age</code>, <code>user_name</code>.</li>
+        <li>Run your code frequently — test small parts first.</li>
+        <li>Errors will happen — read error messages carefully and search for solutions.</li>
+        <li>Write comments to explain your code for future you.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Further reading</h3>
+      <p class="small">Official Python docs at python.org, plus beginner tutorials on W3Schools, Programiz, and Real Python.</p>
+      <p class="small">In Chapter 2 we'll cover project structure, conditionals (if/else), and loops (for/while).</p>
+    </div>
+
+  </aside>
+</div>
+
+<footer>
+  Created for <strong>iCoder</strong> — Chapter 1 (Python). If you want changes (more examples, quizzes, or an exercise solution sheet), tell me and I'll update it.
+</footer>
+
+  </div>  <script>
+    // copy-to-clipboard for code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      const btn = document.createElement('button');
+      btn.textContent = 'Copy';
+      btn.className = 'btn';
+      btn.style.margin = '8px 0';
+      btn.addEventListener('click', () => {
+        navigator.clipboard.writeText(pre.innerText).then(()=>{
+          btn.textContent = 'Copied';
+          setTimeout(()=> btn.textContent = 'Copy',1200);
+        }).catch(()=>{
+          btn.textContent = 'Failed';
+        });
+      });
+      pre.parentNode.insertBefore(btn, pre);
+    });
+  </script></body>
+</html>

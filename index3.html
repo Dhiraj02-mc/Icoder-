@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>iCoder AI</title>
+    <!-- Bootstrap CSS (via CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f7f8fb;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --primary: #0b65d1;
+      --bot-bg: #f1f5f9;
+      --user-bg: #e6f0ff;
+      --accent: #eaf3ff;
+      --radius: 12px;
+      --shadow: 0 6px 18px rgba(12, 24, 48, 0.06);
+      font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system, sans-serif;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      background:var(--bg);
+      color:#111827;
+    }
+
+    .container{
+      max-width:760px;
+      margin:28px auto;
+      padding:20px;
+    }
+
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:20px;
+      border:1px solid rgba(15,23,42,0.04);
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:18px;
+    }
+
+    .logo {
+      width:48px;
+      height:48px;
+      border-radius:10px;
+      background:var(--accent);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      color:var(--primary);
+      font-size:18px;
+      border:1px solid rgba(11,101,209,0.08);
+    }
+
+    h1{
+      margin:0;
+      font-size:20px;
+      font-weight:700;
+      letter-spacing:0.2px;
+    }
+
+    p.lead{
+      margin:6px 0 16px 0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* Recommended */
+    .recommended{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:12px;
+    }
+
+    .rec-list{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .rec-btn{
+      background:transparent;
+      border:1px solid rgba(11,101,209,0.12);
+      color:var(--primary);
+      padding:8px 12px;
+      border-radius:10px;
+      font-size:13px;
+      cursor:pointer;
+      transition:all .15s;
+    }
+    .rec-btn:hover{ transform:translateY(-2px); box-shadow:0 6px 12px rgba(11,101,209,0.06); }
+
+    /* Chatbox */
+    #chatbox{
+      height:420px;
+      overflow-y:auto;
+      padding:14px;
+      border-radius:10px;
+      background:#fbfdff;
+      border:1px solid rgba(10,10,10,0.02);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-bottom:14px;
+    }
+
+    .msg {
+      max-width:78%;
+      padding:12px 14px;
+      border-radius:12px;
+      font-size:14px;
+      line-height:1.45;
+      position:relative;
+      box-shadow:0 2px 6px rgba(16,24,40,0.03);
+      opacity:0;
+      transform:translateY(6px);
+      transition:opacity .18s ease, transform .18s ease;
+      white-space:pre-wrap;
+      word-break:break-word;
+    }
+
+    .msg.show{ opacity:1; transform:none; }
+
+    .bot {
+      background:var(--bot-bg);
+      color:#0f172a;
+      align-self:flex-start;
+      border-top-left-radius:6px;
+      border-top-right-radius:12px;
+    }
+
+    .user {
+      background:var(--user-bg);
+      color:#051033;
+      align-self:flex-end;
+      border-top-right-radius:6px;
+      border-top-left-radius:12px;
+    }
+
+    .timestamp{
+      font-size:11px;
+      color:var(--muted);
+      margin-top:8px;
+      text-align:right;
+    }
+
+    /* Help Us tip */
+    #helpus{
+      display:none;
+      margin-top:8px;
+      padding:10px 12px;
+      border-radius:8px;
+      background:#fff9f0;
+      border-left:4px solid #ffb547;
+      color:#6b4a05;
+      font-size:13px;
+    }
+
+    /* Input area */
+    form#inputForm{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-top:6px;
+    }
+
+    input#input{
+      flex:1;
+      padding:12px 14px;
+      border-radius:999px;
+      border:1px solid rgba(15,23,42,0.06);
+      font-size:15px;
+      outline:none;
+      background:linear-gradient(180deg, #ffffff, #fbfdff);
+    }
+
+    button.send{
+      background:var(--primary);
+      color:white;
+      border:none;
+      padding:10px 16px;
+      border-radius:10px;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow: 0 6px 14px rgba(11,101,209,0.12);
+      transition:transform .12s ease;
+    }
+    button.send:hover{ transform:translateY(-2px); }
+
+    /* small */
+    .small{ font-size:13px; color:var(--muted); }
+    @media (max-width:520px){
+      .container{ padding:12px; }
+      #chatbox{ height:360px; }
+    }
+  </style>
+</head>
+<body>
+   <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">iCoder Web</a>
+    </div>
+  </nav>
+    <ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">More</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="about.html">Html</a></li>
+      <li><a class="dropdown-item" href="join us.html">Join us</a></li>
+      <li><a class="dropdown-item" href="p.html">Buy Primium</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="icoderAi.html">Help</a></li>
+    </ul>
+  </li>
+      <li class="nav-item">
+    <a class="nav-link" href="#">Contact</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" aria-disabled="true">inspect</a>
+  </li>
+</ul>
+  <div class="container">
+    <div class="card">
+      <header>
+        <div class="logo">iC</div>
+        <div>
+          <h1>iCoder AI</h1>
+          <p class="lead">A friendly coding assistant — ask questions, get tips, examples and short "Help Us" suggestions.</p>
+        </div>
+      </header>
+
+      <div class="recommended">
+        <div class="small">💡 Recommended Questions</div>
+        <div class="rec-list" id="recList">
+          <button class="rec-btn">What can you do?</button>
+          <button class="rec-btn">Explain JavaScript variable</button>
+          <button class="rec-btn">Give a coding challenge</button>
+          <button class="rec-btn">Tips to study faster</button>
+        </div>
+      </div>
+
+      <div id="chatbox" aria-live="polite" role="log"></div>
+
+      <div id="helpus" role="note"></div>
+
+      <form id="inputForm" autocomplete="off">
+        <input id="input" type="text" placeholder="Type your question here..." required />
+        <button class="send" type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const chatbox = document.getElementById('chatbox');
+    const inputForm = document.getElementById('inputForm');
+    const inputField = document.getElementById('input');
+    const recButtons = document.querySelectorAll('.rec-btn');
+    const helpUsBox = document.getElementById('helpus');
+
+    // Attach click to recommended buttons
+    recButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        inputField.value = btn.textContent;
+        inputForm.dispatchEvent(new Event('submit', { cancelable: true }));
+      });
+    });
+
+    inputForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const userInput = inputField.value.trim();
+      if (!userInput) return;
+      addMessage('user', userInput);
+      inputField.value = '';
+      helpUsBox.style.display = 'none';
+      helpUsBox.textContent = '';
+
+      // Show a small typing placeholder from bot
+      const typingId = addMessage('bot', '...');
+
+      try {
+        const res = await fetch('https://api.deepinfra.com/v1/openai/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // **Replace the placeholder with your real key**
+            'Authorization': 'Bearer h8KSboPYxpcoznqfTd9qOn6Dc3Yi2LLV'
+          },
+          body: JSON.stringify({
+            model: 'meta-llama/Meta-Llama-3-8B-Instruct',
+            messages: [
+              { role: 'system', content: 'You are iCoder AI — a helpful, concise coding assistant. Reply in English. Provide helpful answers and include one short Help Us tip that starts with "Help Us:" (<= 12 words).' },
+              { role: 'user', content: userInput }
+            ],
+            max_tokens: 800,
+            temperature: 0.2
+          })
+        });
+
+        const data = await res.json();
+        const reply = data?.choices?.[0]?.message?.content?.trim() || 'Sorry, something went wrong.';
+        // replace the typing placeholder with actual reply
+        replaceMessage(typingId, reply);
+
+        // If reply contains "Help Us:" extract and show
+        if (reply.includes('Help Us:')) {
+          const parts = reply.split('Help Us:');
+          const tip = parts[1]?.trim().split('\n')[0];
+          if (tip) {
+            helpUsBox.textContent = '🙏 ' + tip;
+            helpUsBox.style.display = 'block';
+          }
+        }
+      } catch (err) {
+        console.error(err);
+        replaceMessage(typingId, '❌ Network error. Please check your API key and connection.');
+      }
+    });
+
+    // Adds a message; returns id (timestamp string) to identify
+    function addMessage(sender, text) {
+      const id = 'm' + Date.now() + Math.random().toString(36).slice(2,7);
+      const wrapper = document.createElement('div');
+      wrapper.className = 'msg ' + (sender === 'user' ? 'user' : 'bot');
+      wrapper.id = id;
+      // create content
+      const content = document.createElement('div');
+      content.className = 'content';
+      content.textContent = text;
+      wrapper.appendChild(content);
+      // timestamp
+      const ts = document.createElement('div');
+      ts.className = 'timestamp';
+      const now = new Date();
+      ts.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      wrapper.appendChild(ts);
+
+      chatbox.appendChild(wrapper);
+      // allow animation
+      requestAnimationFrame(() => wrapper.classList.add('show'));
+      chatbox.scrollTop = chatbox.scrollHeight;
+      return id;
+    }
+
+    // Replace message by id with new text
+    function replaceMessage(id, newText) {
+      const el = document.getElementById(id);
+      if (!el) {
+        addMessage('bot', newText);
+        return;
+      }
+      const content = el.querySelector('.content');
+      content.textContent = newText;
+      // reflow to ensure visible
+      el.classList.add('show');
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+  </script>
+</body>
+</html>
